@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hrEM</title> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <nav class="navbar has-background-success" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                hr-EM
+            </a>
+        </div>
+    </nav>
+    <div class="columns is-centered mt-5">
+        <div class="column is-half">
+            <h1 class="title has-text-centered">Emotion rating of Croatian text</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input" type="text" id="textbox" name="textbox" placeholder="Enter Text">
+                    </div>
+                    <div class="control">
+                        <input class="button is-primary" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
