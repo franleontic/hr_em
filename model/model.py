@@ -19,3 +19,18 @@ class Model:
         
         confidence = rated_words/len(text)
         return text_rating, confidence
+    
+    def score_all(self, text):
+        text_rating = np.zeros(2)
+        rated_words = 0
+        words = self.lem(text)
+        for word in words.sentences[0].words:
+            word = word.lemma
+
+            if word in self.rating_dict:
+                rating = self.rating_dict[word]
+                text_rating += rating
+                rated_words += 1
+        
+        confidence = rated_words/len(text)
+        return text_rating, confidence

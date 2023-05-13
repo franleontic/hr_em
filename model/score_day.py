@@ -16,7 +16,7 @@ def score(file_path, dest_path, model):
     for line in lines:
         print("Scored " + str(ctr))
         ctr += 1
-        rating, confidence = model.score(line.split(','))
+        rating, confidence = model.score_all(line)
         ratings.append(rating)
         confidences.append(confidence)
 
