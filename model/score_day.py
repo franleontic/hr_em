@@ -9,7 +9,7 @@ def score(file_path, dest_path, model):
     print("Rating " + file_path)
     ratings = []
     confidences = []
-    with open(file_path) as f:
+    with open(file_path, errors="ignore") as f:
         lines = [line for line in f]
 
     ctr = 0
@@ -43,8 +43,7 @@ for y in years:
             os.chdir(path)
             path_result = os.path.join(script_dir, path_result)
             
-
-            for date in os.listdir()[2:]:
+            for date in os.listdir():
                 os.makedirs(path_result, exist_ok=True)
                 curr_path = os.path.join(path, date)
                 curr_path_result = os.path.join(path_result, date)
