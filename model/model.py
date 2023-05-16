@@ -31,9 +31,7 @@ class Model:
         if len(words.sentences) > 0:
             for word in words.sentences[0].words:
                 word = word.lemma
-                print(f"Word is {word}")
                 if word in self.rating_dict:
-                    print(f"Found {word}")
                     rating = self.rating_dict[word]
                     text_rating += rating
                     rated_words += 1
@@ -57,9 +55,7 @@ class Model:
                 if word.upos != "PUNCT" and word.text.lower() not in self.sw:
                     total_words += 1 
                     word = word.lemma.lower()
-                    print(f"Word is {word}")
                     if word in self.rating_dict:
-                        print(f"Found {word}")
                         rating = self.rating_dict[word]
                         text_rating += rating
                         rated_words += 1
