@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-rating_path = "C:\\python\\diplomski_em\\ratings"
+rating_path = ".\\ratings"
 df = pd.DataFrame(columns=["Day", "Valence", "Arousal"])
 
 threshold = 0.2
@@ -24,7 +24,8 @@ for folder in os.listdir(rating_path):
 
             filtered_ratings = [x for x, y in zip(ratings, confidences) if y >= threshold]
             mean = np.mean(filtered_ratings, axis=0)
-            df = df.append({"Day" : file_name, "Valence" : mean[0], "Arousal" : mean[1]}, ignore_index=True)
+            df.loc[len(df)] = {"Day" : file_name, "Valence" : mean[0], "Arousal" : mean[1]}
+            # df = df.append({"Day" : file_name, "Valence" : mean[0], "Arousal" : mean[1]}, ignore_index=True)
 
 
 df["Day"] = pd.to_datetime(df["Day"])
