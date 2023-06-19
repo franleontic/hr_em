@@ -1,32 +1,128 @@
 <!DOCTYPE html>
+{% load colorfilter %}
 <html>
 <head>
     <title>hrEM</title> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-    <nav class="navbar has-background-success" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-                hr-EM
+            <a class="navbar-item" href="/">
+                Analiza emocija
             </a>
+            {% if user.is_authenticated %}
+            <a class="navbar-item" href="/list">
+                Ocijenjeni tekstovi
+            </a>
+            <a class="navbar-item" href="/logout">
+                Logout
+            </a>
+            {% else %}
+            <a class="navbar-item" href="/register">
+                Registracija
+            </a>
+            <a class="navbar-item" href="/login">
+                Login
+            </a>
+            {% endif %}
         </div>
     </nav>
     <div class="columns is-centered mt-5">
         <div class="column is-half">
-            <h1 class="title has-text-centered">Emotion rating of Croatian text</h1>
-            <form method="post">
+            <form class="form-horizontal" method="post">
                 {% csrf_token %}
-                <div class="field has-addons">
-                    <div class="control is-expanded">
-                        <input class="input" type="text" id="textbox" name="textbox" placeholder="Enter Text">
+
+                <div class="field">                  
+                    <input class="input" type="text" id="textbox" name="textbox" value="{{ textval }}" placeholder="Unesi tekst"></input>
+                </div>
+            
+
+                <div class="field has-addons has-addons-centered">
+                    <div class="select">
+                        <select id="select" name="select">
+                        <option value="dmb">Dimenzionalni model - Microsoft prijevod</option>
+                        <option value="dmg">Dimenzionalni model - Google prijevod</option>
+                        <option value="ds">Diskretni model</option>
+                        </select>
                     </div>
-                    <div class="control">
-                        <input class="button is-primary" type="submit" value="Submit">
-                    </div>
+                </div>
+                
+                <div class="field has-addons has-addons-centered">
+                    <button id="singlebutton" name="singlebutton" class="button is-primary">Ocijeni</button>
                 </div>
             </form>
         </div>
     </div>
+    {% if ratings is not None %}
+    <div class="columns is-centered">
+        {% if model == "ds" %}
+        <table class="table">
+            <thead>
+                <th>Riječ</th>
+                <th>Anger</th>
+                <th>Anticipation</th>
+                <th>Disgust</th>
+                <th>Fear</th>
+                <th>Joy</th>
+                <th>Sadness</th>
+                <th>Surprise</th>
+                <th>Trust</th>
+            </thead>
+            <tfoot>
+                <th>total</th>
+                <th>{{ final_rating.0|floatformat:2 }}</th>
+                <th>{{ final_rating.1|floatformat:2 }}</th>
+                <th>{{ final_rating.2|floatformat:2 }}</th>
+                <th>{{ final_rating.3|floatformat:2 }}</th>
+                <th>{{ final_rating.4|floatformat:2 }}</th>
+                <th>{{ final_rating.5|floatformat:2 }}</th>
+                <th>{{ final_rating.6|floatformat:2 }}</th>
+                <th>{{ final_rating.7|floatformat:2 }}</th>
+            </tfoot>
+            <tbody>
+                {% for word, rating in ratings %}
+                <tr>
+                    <th>{{ word }}</th>
+                    <td style="color: {{ rating.0|calculate_color_bg }}">{{ rating.0|floatformat:2 }}</td>
+                    <td style="color: {{ rating.1|calculate_color_bg }}">{{ rating.1|floatformat:2 }}</td>
+                    <td style="color: {{ rating.2|calculate_color_bg }}">{{ rating.2|floatformat:2 }}</td>
+                    <td style="color: {{ rating.3|calculate_color_bg }}">{{ rating.3|floatformat:2 }}</td>
+                    <td style="color: {{ rating.4|calculate_color_bg }}">{{ rating.4|floatformat:2 }}</td>
+                    <td style="color: {{ rating.5|calculate_color_bg }}">{{ rating.5|floatformat:2 }}</td>
+                    <td style="color: {{ rating.6|calculate_color_bg }}">{{ rating.6|floatformat:2 }}</td>
+                    <td style="color: {{ rating.7|calculate_color_bg }}">{{ rating.7|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <table class="table">
+            <thead>
+                <th>Riječ</th>
+                <th>Valence</th>
+                <th>Arousal</th>
+                <th>Dominance</th>
+            </thead>
+            <tfoot>
+                <th>total</th>
+                <th>{{ final_rating.0|floatformat:2 }}</th>
+                <th>{{ final_rating.1|floatformat:2 }}</th>
+                <th>{{ final_rating.2|floatformat:2 }}</th>
+            </tfoot>
+            <tbody>
+                {% for word, rating in ratings %}
+                <tr>
+                    <th>{{ word }}</th>
+                    <td style="color: {{ rating.0|calculate_color_bb }}">{{ rating.0|floatformat:2 }}</td>
+                    <td style="color: {{ rating.1|calculate_color_bo }}">{{ rating.1|floatformat:2 }}</td>
+                    <td style="color: {{ rating.2|calculate_color_bp }}">{{ rating.2|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    {% endif %}
 </body>
 </html>
