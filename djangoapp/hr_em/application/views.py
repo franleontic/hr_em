@@ -12,7 +12,7 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.conf import settings
 
-nlp = classla.Pipeline("hr", processors='tokenize, pos, lemma', tokenize_no_ssplit=True)
+# nlp = classla.Pipeline("hr", processors='tokenize, pos, lemma', tokenize_no_ssplit=True)
 sw = stopwords.stopwords("hr")
 
 with open(os.path.join(settings.STATIC_ROOT, "disc_model.pickle"), 'rb') as file:
@@ -27,7 +27,7 @@ def index(request):
         text = request.POST.get('textbox')
         model = request.POST.get('select')
 
-        text = nlp(text)
+#        text = nlp(text)
         words = []
         for sentence in text.sentences:
             for word in sentence.words:
