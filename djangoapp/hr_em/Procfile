@@ -1,1 +1,1 @@
-web: gunicorn hr_em.wsgi:application
+web: gunicorn --log-level debug hr_em.wsgi:application
