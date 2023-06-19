@@ -12,6 +12,7 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.conf import settings
 
+classla.download("hr")
 nlp = classla.Pipeline("hr", processors='tokenize, pos, lemma', tokenize_no_ssplit=True)
 sw = stopwords.stopwords("hr")
 
