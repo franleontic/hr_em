@@ -6,9 +6,10 @@ COPY requirements.txt .
 
 RUN apt-get update && apt-get install -y libpq-dev build-essential
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python models.py
 
 COPY . .
+
+RUN python models.py
 
 EXPOSE 8000
 
