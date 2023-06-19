@@ -9,14 +9,14 @@ def tokenize(text):
     for sentence in text.sentences:
         for word in sentence.words:
             if word.upos != "PUNCT" and word.text.lower() not in sw:
-                words.append(word.text.lower())
+                words.append(word.lemma.lower())
     return words
 
-nlp = classla.Pipeline("hr", processors='tokenize, pos', tokenize_no_ssplit=True)
+nlp = classla.Pipeline("hr", processors='tokenize, pos, lemma', tokenize_no_ssplit=True)
 sw = stopwords.stopwords("hr")
 script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-years = ["2020"]
-months = ["01", "02"]
+years = ["2019", "2020", "2021"]
+months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
 for y in years:
     for m in months:
@@ -35,10 +35,10 @@ for y in years:
 
                 file_path = f"{curr_path}"
                 dest_path = f"{curr_path_result}.txt"
-                with open(dest_path, 'w') as f1:
+                with open(dest_path, 'w', encoding="UTF-8") as f1:
                     for file in os.listdir():
                         file_path = f"{curr_path}/{file}"
-                        with open(file_path, 'r') as f2:
+                        with open(file_path, 'r', encoding="UTF-8") as f2:
                             text = f2.read().rstrip()
                             text = tokenize(text)
                             f1.write(','.join(text))

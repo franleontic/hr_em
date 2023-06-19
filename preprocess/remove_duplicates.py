@@ -1,12 +1,11 @@
-
 import os
 import hashlib
 from pathlib import Path
   
 
 script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-years = ["2020"]
-months = ["01", "02"]
+years = ["2019", "2020", "2021"]
+months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
 for y in years:
     for m in months:

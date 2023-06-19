@@ -3,7 +3,7 @@ import os
 charmap = {"~": "č", "{": "š", "}" : "ć", "|" : "đ", "`": "ž", "[": "Š", "@" : "Ž", "^" : "Č", "]" : "Ć", "\\": "Đ"}
 
 def replace_chars(file_path, dest_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding="UTF-8") as f:
         try:
             text = f.read()
         except UnicodeDecodeError:
@@ -11,12 +11,12 @@ def replace_chars(file_path, dest_path):
             return
     for char, replacement in charmap.items():
         text = text.replace(char, replacement)
-    with open(dest_path, 'w') as f:
+    with open(dest_path, 'w', encoding="UTF-8") as f:
         f.write(text)
 
 script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-years = ["2020"]
-months = ["01", "02"]
+years = ["2019", "2020", "2021"]
+months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
 for y in years:
     for m in months:
