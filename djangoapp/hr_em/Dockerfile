@@ -6,10 +6,10 @@ COPY requirements.txt .
 
 RUN apt-get update && apt-get install -y libpq-dev build-essential
 RUN pip install --no-cache-dir -r requirements.txt
+RUN python models.py
 
 COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "models.py"]
 CMD ["gunicorn", "--bind" "0.0.0.0:8000", "hr_em.wsgi:application"]
