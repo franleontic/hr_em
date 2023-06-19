@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+import classla
 
 class DimensionalModel:
     def __init__(self, rating_dict):
@@ -83,3 +84,7 @@ class DiscreteModel:
             text_rating = text_rating/rated_words
             confidence = rated_words/len(words)
         return ratings, text_rating, confidence
+    
+
+if __name__ == "__main__":
+    classla.download("hr")
