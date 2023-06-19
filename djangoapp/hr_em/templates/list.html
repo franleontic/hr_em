@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load colorfilter %}
+<html>
+<head>
+    <title>hrEM</title> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                Analiza emocija
+            </a>
+            <a class="navbar-item" href="/list">
+                Ocijenjeni tekstovi
+            </a>
+            <a class="navbar-item" href="/logout">
+                Logout
+            </a>
+        </div>
+    </nav>
+    <div class="container mt-5">
+    {% if dim is not None %}
+        <div class="columns is-centered">
+            <div class="column has-text-centered is-three-quarters">
+                <h2 class="title">Dimenzionalni model</h2>
+                <div class="columns">
+                    <div class="column has-text-centered">Tekst</div>
+                    <div class="column has-text-centered">Valence</div>
+                    <div class="column has-text-centered">Arousal</div>
+                    <div class="column has-text-centered">Dominance</div>
+                    <div class="column has-text-centered">Confidence</div>
+                </div>
+                {% for ratings, texts, cfs in dim %}
+                <div class="columns">
+                    <div class="column is-one-fifth has-text-centered" style="word-wrap: break-word;">{{ texts }}</div>
+                    <div class="column has-text-centered">{{ ratings.0|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.1|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.2|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ cfs|floatformat:2 }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if disc is not None %}
+        <div class="columns is-centered">
+            <div class="column has-text-centered">
+                <h2 class="title">Diskretni model</h2>
+                <div class="columns">
+                    <div class="column is-one-quarter has-text-centered">Tekst</div>
+                    <div class="column has-text-centered">Anger</div>
+                    <div class="column has-text-centered">Anticipation</div>
+                    <div class="column has-text-centered">Disgust</div>
+                    <div class="column has-text-centered">Fear</div>
+                    <div class="column has-text-centered">Joy</div>
+                    <div class="column has-text-centered">Sadness</div>
+                    <div class="column has-text-centered">Surprise</div>
+                    <div class="column has-text-centered">Trust</div>
+                    <div class="column has-text-centered">Confidence</div>
+                </div>
+                {% for ratings, texts, cfs in disc %}
+                <div class="columns">
+                    <div class="column is-one-quarter has-text-centered" style="word-wrap: break-word;">{{ texts }}</div>
+                    <div class="column has-text-centered">{{ ratings.0|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.1|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.2|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.3|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.4|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.5|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.6|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ ratings.7|floatformat:2 }}</div>
+                    <div class="column has-text-centered">{{ cfs|floatformat:2 }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    </div>
+</body>
+</html>
